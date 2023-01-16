@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { IPosts } from '../models/IPosts';
+import './Posts.css'
 
 
 
@@ -42,11 +43,12 @@ console.log(posts.post);
 
   return (
     <div>
+        <h1 className='heading__1'> Posts </h1>
           { errorMsg && (<p>{errorMsg}</p>)}
           { loading && (<h1>loading....</h1>)}
-      <ul>
+      <ul className='card__grid'>
       {post.length > 0 && post.map( post => {
-        return <li key={post.id}>
+        return <li key={post.id} className='card'>
                  <h2>{post.title}</h2>
                  <p>{post.body}</p>
                  <p>{post.userId}</p>
