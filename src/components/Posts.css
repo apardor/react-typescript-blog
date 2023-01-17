@@ -3,11 +3,27 @@ h1.heading__1{
     margin: 2rem 0;
 }
 
+h2.heading__2{
+    margin: 2rem 0;
+    padding: 2rem;
+    background-color: cyan;
+    cursor: pointer;
+}
+
+h3.heading__3{
+    text-align: center;
+    margin: 1rem 0;
+}
+
 ul.card__grid {
     display: grid;
     flex-wrap: wrap;
     grid-template-columns: repeat(4, 1fr);
     grid-gap: 2rem;
+}
+
+.hidden{
+    display: none;
 }
 
 li.card{

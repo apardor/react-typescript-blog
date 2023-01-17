@@ -6,3 +6,19 @@ export interface IPosts {
     tags: string[];
     reactions: number
 }
+
+export interface IState{
+    loading: boolean,
+    post: IPosts[],
+    errorMsg: string,
+}
+
+
+export enum Tags {
+  history = 'History',
+  american = 'American',
+  crime = 'Crime',
+  magical = 'Magical',
+  fiction = 'Fiction'
+}
+

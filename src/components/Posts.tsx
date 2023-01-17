@@ -1,15 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import { IPosts } from '../models/IPosts';
+import { IPosts, IState, Tags } from '../models/IPosts';
 import './Posts.css'
-
-
-
-interface IState{
-    loading: boolean,
-    post: IPosts[],
-    errorMsg: string
-}
 
 
 const Posts: React.FC = () => {
@@ -20,7 +12,7 @@ const Posts: React.FC = () => {
         errorMsg: ''
     });
 
-    const [error, setError] = useState({});
+    const [isActive, setIsActive] = useState<string>();
   
     useEffect(()=>{
         setPosts({...posts, loading: true})
@@ -39,29 +31,53 @@ const Posts: React.FC = () => {
 
 const {loading, post, errorMsg } = posts;
 
-console.log(posts.post);
+ const toggleAccordion = (el: string) => {
+    if(el === isActive) {
+      setIsActive('')
+      return
+    }
+    setIsActive(el)
+ }
 
   return (
     <div>
-        <h1 className='heading__1'> Posts </h1>
-          { errorMsg && (<p>{errorMsg}</p>)}
-          { loading && (<h1>loading....</h1>)}
-      <ul className='card__grid'>
-      {post.length > 0 && post.map( post => {
-        return <li key={post.id} className='card'>
-                 <h2>{post.title}</h2>
-                 <p>{post.body}</p>
-                 <p>{post.userId}</p>
-                 <p>{post.tags}</p>
-                 <p>{post.reactions}</p>
-                </li>
-      })
-      }
+      <h1 className='heading__1'> Posts </h1>
+      {Object.keys(Tags).map(el => {
+        
+        
+        return (<>  
+        <section>
+          <h2  className='heading__2' onClick={() => toggleAccordion(el)} >{el[0].toUpperCase() + el.slice(1)}</h2>
+          
+          
+          <ul className={isActive === el ? 'card__grid' : 'hidden'}> 
 
-      </ul>
+          {post.length > 0 && post.map( post => {
+            
+            if(post.tags.find( tag => el === tag)) { 
+              
+              return   <li key={post.id} className='card'>
+                          <h3 className='heading__3'>{post.title}</h3>
+                          <p>{post.body}</p>
+                          <p>{post.userId}</p>
+                          <p>tags: {post.tags.join(', ')}</p>
+                          <p>{post.reactions}</p>
+                          </li> 
+                  }
 
+              }
+            )
+          }
+        
+          </ul> 
+        
+
+        </section>  
+        </>)
+      } )}
     </div>
   )
 }
 
 export default Posts
+
