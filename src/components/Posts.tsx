@@ -41,40 +41,39 @@ const {loading, post, errorMsg } = posts;
 
   return (
     <div>
+      {errorMsg && (<p>{errorMsg}</p>)}
+      {loading && <h1>Loading... </h1>}
       <h1 className='heading__1'> Posts </h1>
-      {Object.keys(Tags).map(el => {
+      {Object.keys(Tags).map((el, index) => {
         
         
         return (<>  
-        <section>
-          <h2  className='heading__2' onClick={() => toggleAccordion(el)} >{el[0].toUpperCase() + el.slice(1)}</h2>
-          
-          
-          <ul className={isActive === el ? 'card__grid' : 'hidden'}> 
-
+        <section key={index}>
+          <div className='title__tab' onClick={() => toggleAccordion(el)}>
+          <h2 className='heading__2'>{el[0].toUpperCase() + el.slice(1)}</h2>
+          <div className='plus__minus'>{isActive === el ? (
+              <span>-</span>
+          ) : (
+            <span>+</span>
+          )}</div>
+          </div>
+          <ul key={index} className={isActive === el ? 'card__grid' : 'hidden'}> 
           {post.length > 0 && post.map( post => {
-            
             if(post.tags.find( tag => el === tag)) { 
-              
               return   <li key={post.id} className='card'>
                           <h3 className='heading__3'>{post.title}</h3>
-                          <p>{post.body}</p>
-                          <p>{post.userId}</p>
-                          <p>tags: {post.tags.join(', ')}</p>
-                          <p>{post.reactions}</p>
+                          <p className='parragraph'>{post.body}</p>
+                          <p className='parragraph'>userId: {post.userId}</p>
+                          <p className='parragraph'>tags: {post.tags.join(', ')}</p>
+                          <p className='parragraph'>reactions: {post.reactions}</p>
                           </li> 
-                  }
-
-              }
-            )
+                  }})
           }
-        
           </ul> 
-        
-
         </section>  
         </>)
-      } )}
+      })}
+
     </div>
   )
 }
