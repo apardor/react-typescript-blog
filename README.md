@@ -26,7 +26,7 @@ Each section is created with accordions that display the posts as a list of card
 
 
       1. Git clone this rep > git@github.com:apardor/react-typescript-blog.git
-      2. CD into REACT-TYPE-BLOG
+      2. CD into react-typescript-blog
       3. npm i
       4. npm run dev
 
